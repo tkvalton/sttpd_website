@@ -1,100 +1,99 @@
 <!-- 
   Home page component with accessibility fixes
 -->
-<script>
-    import ReviewBox from '../../general/ReviewBox.svelte';
-    import PageWidget from './PageWidet.svelte'; // If in same folder
-    import YoutubeStats from './YoutubeStats.svelte'; // If in same folder
+<script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
+  import ReviewBox from '../../general/ReviewBox.svelte';
+  import PageWidget from './PageWidet.svelte';
+  import YoutubeStats from './YoutubeStats.svelte';
 
-    // Sample data for widgets
-    const widgets = [
-    {
-        name: 'Darts Coaching',
-        description: 'With our exclusive Darts Coaching services, we can help you improve your game.',
-        image: '/assets/images/coaching/web_sessions.jpg',
-        link: '/coaching'
-    },
-    {
-        name: 'My Darts',
-        description: 'Handmade by CustomMade Darts, these premium darts are designed to be very front weighted to help the dart travel to the board with little effort.',
-        image: '/assets/images/darts/darts1-1.png',
-        link: '/mydarts'
-    }
-    ];
-        
-    // Sample testimonials from PDC pros
-    const testimonials = [
+  // Type for widgets
+  interface Widget {
+      name: string;
+      description: string;
+      image: string;
+      link: string;
+  }
+
+  // Type for testimonials
+  interface Testimonial {
+      text: string;
+      name: string;
+  }
+
+  // Sample data for widgets
+  const widgets: Widget[] = [
       {
-        text: "Anything thus man dosnt know about darts isn't worth knowing, a real credit to the sport!",
-        name: "Connor Scutt – PDC Professional and former Lakeside World Championship #1 seed."
+          name: 'Darts Coaching',
+          description: 'With our exclusive Darts Coaching services, we can help you improve your game.',
+          image: '/assets/images/coaching/web_sessions.jpg',
+          link: '/coaching'
       },
       {
-        text: "Outstanding video as always.",
-        name: "Glen Durrant – X3 BDO world champion and PDC Premier League Champion."
-      },
-      {
-        text: "That video is mental mate thank you very much!",
-        name: "PDC Pro Lewis Williams."
-      },
-      {
-        text: "Very useful thank you",
-        name: "PDC Pro Jules Van Dongen."
+          name: 'My Darts',
+          description: 'Handmade by CustomMade Darts, these premium darts are designed to be very front weighted to help the dart travel to the board with little effort.',
+          image: '/assets/images/darts/darts1-1.png',
+          link: '/mydarts'
       }
-    ];
-  
-    // Auto-scroll testimonials
-    let scrollInterval;
-    let testimonialsElement;
-  
-    function startAutoScroll() {
+  ];
+      
+  // Sample testimonials from PDC pros
+  const testimonials: Testimonial[] = [
+    // ... existing testimonials ...
+  ];
+
+  // Auto-scroll testimonials
+  let scrollInterval: number | null = null;
+  let testimonialsElement: HTMLDivElement | null = null;
+
+  function startAutoScroll() {
+    if (!testimonialsElement) return;
+    
+    scrollInterval = setInterval(() => {
       if (!testimonialsElement) return;
       
-      scrollInterval = setInterval(() => {
-        if (!testimonialsElement) return;
-        
-        const scrollAmount = 2; // pixels per interval
-        const scrollWidth = testimonialsElement.scrollWidth;
-        const clientWidth = testimonialsElement.clientWidth;
-        const maxScroll = scrollWidth - clientWidth;
-        
-        if (testimonialsElement.scrollLeft >= maxScroll) {
-          testimonialsElement.scrollLeft = 0;
-        } else {
-          testimonialsElement.scrollLeft += scrollAmount;
-        }
-      }, 50);
-    }
-  
-    function stopAutoScroll() {
+      const scrollAmount = 2; // pixels per interval
+      const scrollWidth = testimonialsElement.scrollWidth;
+      const clientWidth = testimonialsElement.clientWidth;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      if (testimonialsElement.scrollLeft >= maxScroll) {
+        testimonialsElement.scrollLeft = 0;
+      } else {
+        testimonialsElement.scrollLeft += scrollAmount;
+      }
+    }, 50);
+  }
+
+  function stopAutoScroll() {
+    if (scrollInterval) {
       clearInterval(scrollInterval);
+      scrollInterval = null;
     }
+  }
+
+  // Start/stop auto-scroll based on interaction
+  function handleTestimonialsMouseEnter() {
+    stopAutoScroll();
+  }
+
+  function handleTestimonialsMouseLeave() {
+    startAutoScroll();
+  }
   
-    // Start/stop auto-scroll based on interaction
-    function handleTestimonialsMouseEnter() {
-      stopAutoScroll();
-    }
+  onMount(() => {
+    startAutoScroll();
+  });
   
-    function handleTestimonialsMouseLeave() {
-      startAutoScroll();
-    }
-    
-    // Initialize auto-scroll when component mounts
-    import { onMount, onDestroy } from 'svelte';
-    
-    onMount(() => {
-      startAutoScroll();
-    });
-    
-    onDestroy(() => {
-      stopAutoScroll();
-    });
-  </script>
+  onDestroy(() => {
+    stopAutoScroll();
+  });
+</script>
   
   <main class="home-page">
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-content">
         <div class="hero-text">
-          <h1 id="hero-heading">Straight To The Point Darts</h1>
           <p class="hero-description">
             Straight To The Point Darts offers various online darts tuition services dedicated to helping darts players improve and develop their game.
           </p>
@@ -103,7 +102,7 @@
           <p class="credentials">PROFESSIONAL DARTS PLAYERS ASSOCIATION OFFICIAL DARTS COACH</p>
         </div>
         <div class="hero-image">
-          <img src="/images/logos/professional_darts_players_association_offical_darts_coach_no_text.png" alt="PDPA Official Coach Badge" />
+          <img src="/assets/logos/professional_darts_players_association_offical_darts_coach_no_text.png" alt="Badge" />
         </div>
       </div>
     </section>
@@ -132,6 +131,15 @@
         bind:this={testimonialsElement}
         on:mouseenter={handleTestimonialsMouseEnter}
         on:mouseleave={handleTestimonialsMouseLeave}
+        on:keydown={(e) => {
+          // Add keyboard interactions if needed
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            // Implement scroll logic
+            e.preventDefault();
+          }
+        }}
+        role="region"
+        aria-roledescription="Scrollable list of testimonials"
         tabindex="0"
         aria-label="Scrollable testimonials from professional darts players"
       >
@@ -173,14 +181,9 @@
       padding-right: 25px;
     }
     
-    h1 {
-      font-size: 30px;
-      color: white;
-      margin-bottom: 34px;
-    }
-    
     .hero-description {
-      font-size: 16px;
+      font-size: 32px;
+      text-align: left;
       color: white;
       max-width: 700px;
     }
@@ -210,12 +213,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+      height: 250px;
     }
-    
+
     .hero-image img {
-      max-width: 250px;
-    }
-    
+      max-width: none;
+      width: 350px;
+      height: auto;
+      top: 50%;
+      left: 50%
+      transform: translate(-50%, -50%) scale(1.5); /* Enlarge and center */
+      }
+      
     .widgets-container {
       display: flex;
       justify-content: center;

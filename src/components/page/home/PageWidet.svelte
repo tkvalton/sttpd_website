@@ -2,7 +2,7 @@
   PageWidget component with accessibility fixes
   Represents a clickable content card with hover animations
 -->
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     import { spring } from 'svelte/motion';
     
@@ -31,7 +31,7 @@
     }
   
     // Handle keyboard navigation
-    function handleKeyDown(event) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Enter' || event.key === ' ') {
         window.location.href = link;
       }
@@ -85,24 +85,12 @@
     .image-container {
       position: relative;
       height: 300px;
-      margin-bottom: -15px; /* Overlap with info container */
-    }
-    
-    .image-border {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 67px;
-      border: 2px solid white;
-      border-radius: 5px;
-      pointer-events: none;
+      margin-bottom: -70px; /* Overlap with info container */
     }
     
     .image-wrapper {
       position: relative;
       height: 100%;
-      padding: 2px;
       z-index: 1;
     }
     
@@ -120,7 +108,6 @@
     
     .info-panel {
       height: 75px;
-      border: 2px solid white;
       border-radius: 0 0 5px 5px;
       display: flex;
       justify-content: center;

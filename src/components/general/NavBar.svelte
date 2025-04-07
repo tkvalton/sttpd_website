@@ -1,7 +1,7 @@
 <!-- 
   Navigation bar component with accessibility fixes
 -->
-<script>
+<script lang="ts">
     import { onMount } from 'svelte';
     
     // If using SvelteKit, uncomment the next line
@@ -10,7 +10,7 @@
     // For non-SvelteKit projects, create a currentPath store
     import { writable } from 'svelte/store';
     export let currentPath = '/';
-    export let onNavigate = () => {};
+    export let onNavigate: (path: string) => void = () => {};
     
     const currentRoute = writable(currentPath);
     
@@ -33,7 +33,7 @@
     }
     
     // Handle navigation click
-    function handleNavClick(path) {
+    function handleNavClick(path: string) {
       onNavigate(path);
       if (window.innerWidth <= 768) {
         mobileMenuOpen = false;
@@ -41,7 +41,7 @@
     }
     
     // Handle keyboard navigation
-    function handleKeyDown(event, path) {
+    function handleKeyDown(event: KeyboardEvent, path: string) {
       if (event.key === 'Enter' || event.key === ' ') {
         handleNavClick(path);
       }

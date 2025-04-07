@@ -27,7 +27,7 @@
     <div class="stats-container">
       <div class="left-column">
         <div class="youtube-logo">
-          <img src="/images/socials/icons8-youtube-96.png" alt="YouTube logo" />
+          <img src="/assets/socials/icons8-youtube-96.png" alt="YouTube logo" />
         </div>
         <h2 id="youtube-heading">Check our YouTube channel</h2>
         <p class="subtitle">Since we started our YouTube channel in March 2021 our following continues to grow</p>
