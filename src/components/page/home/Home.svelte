@@ -8,20 +8,20 @@
     
     // Sample data for widgets
     const widgets = [
-      {
+    {
         name: 'Darts Coaching',
         description: 'With our exclusive Darts Coaching services, we can help you improve your game.',
-        image: '/images/coaching/web_sessions.jpg',
+        image: '/assets/images/coaching/web_sessions.jpg',
         link: '/coaching'
-      },
-      {
+    },
+    {
         name: 'My Darts',
         description: 'Handmade by CustomMade Darts, these premium darts are designed to be very front weighted to help the dart travel to the board with little effort.',
-        image: '/images/darts/darts1-1.png',
+        image: '/assets/images/darts/darts1-1.png',
         link: '/mydarts'
-      }
+    }
     ];
-    
+        
     // Sample testimonials from PDC pros
     const testimonials = [
       {
