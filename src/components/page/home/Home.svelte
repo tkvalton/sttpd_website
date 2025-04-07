@@ -2,10 +2,10 @@
   Home page component with accessibility fixes
 -->
 <script>
-    import ReviewBox from '../components/ReviewBox.svelte';
-    import PageWidget from '../components/PageWidget.svelte';
-    import YoutubeStats from '../components/YoutubeStats.svelte';
-    
+    import ReviewBox from '../../general/ReviewBox.svelte';
+    import PageWidget from './PageWidet.svelte'; // If in same folder
+    import YoutubeStats from './YoutubeStats.svelte'; // If in same folder
+
     // Sample data for widgets
     const widgets = [
     {
