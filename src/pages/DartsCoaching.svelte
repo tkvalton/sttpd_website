@@ -1,5 +1,5 @@
 <!-- 
-  Updated Darts Coaching page using the reusable Testimonials component
+  Updated Darts Coaching page with customized service panels and key benefits
 -->
 <script lang="ts">
   import ServicePanel from '../components/darts_coaching/ServicePanel.svelte';
@@ -8,41 +8,50 @@
   // Instructions for the Throw Analysis service
   const throwAnalysisInstructions = [
     "FILM 9 DARTS THROW AT T20 FROM SIDE-ON.",
-    "FILM 9 DARTS THROW AT T20 FRONT ON. IT CAN ALSO BE USEFUL TO SEND A CLIP IN SLOW-MOTION FROM THIS POSITION AS WELL BUT NOT ESSENTIAL.",
-    "INCLUDING A PHOTOGRAPH OF YOUR GRIP CAN ALSO BE HELPFUL."
+    "FILM 9 DARTS THROW AT T20 FRONT ON.",
+    "INCLUDING A PHOTOGRAPH OF YOUR GRIP IS HELPFUL."
   ];
 
-  // Service descriptions
-  const throwAnalysisDescription = `As used by 10 current and former PDC Professionals.
+  // Key benefits for each service
+  const throwAnalysisBenefits = [
+    "Professional analysis used by 10 PDC pros",
+    "Custom video breakdown of your technique",
+    "Detailed slow-motion correction guide",
+    "Proven techniques that get results"
+  ];
 
-Throw analysis and custom video service could be just what you need help get you to the next step. This provides multiple examples of how your throw can be improved and examples of multiple professionals implementing the feedback, so you know it works.
+  const webSessionBenefits = [
+    "Real-time feedback on your technique",
+    "Live slow-motion video analysis",
+    "Direct coaching from a professional",
+    "Immediate improvement strategies"
+  ];
 
-After hours of deliberation I will then create your own straight to the point darts instructional video. This video will detail any areas of improvement needed in slow motion and show you ways to correct these faults.
+  const blockSessionsBenefits = [
+    "Progressive improvement over six sessions",
+    "Custom practice routine created just for you",
+    "Consistent schedule to build skills",
+    "Comprehensive technical development"
+  ];
 
-The instructions for filming the Analysis is below. If you can film the front on shot in slow-motion it can better, but its not essential.
+  // Condensed service descriptions
+  const throwAnalysisDescription = `Throw analysis could be just what you need to take your game to the next level. I'll analyze your technique in detail and create a custom instructional video made specifically for you.
 
-You can send the footage via email using Google drive, Dropbox box, WeTransfer or something similar. If you're using an android device the app "Filemail" is free and works well. If easier I also accept footage via social media or WhatsApp to 07522 386993. Please email me directly once sent so I can confirm the footage has been recived.`;
+After hours of deliberation, I'll identify key improvement areas and demonstrate correction techniques through clear, slow-motion video instructions.
 
-  const webSessionDescription = `Please contact me to check what time slots are available before the payment is made via email or telephone.
+You can send footage via Google Drive, Dropbox, WeTransfer, or WhatsApp (07522 386993). The "Filemail" app works well for Android users. Please email me once sent to confirm receipt.`;
 
-straighttothepointdarts@gmail.com
-07522386993
+  const webSessionDescription = `Live online coaching session where we can record your throw and analyze it in real-time. I'll provide immediate feedback on technique corrections.
 
-During the session we can record your throw and play it back to you in slow-motion explaining errors made and provide feedback on how to correct them.
+Sessions are held via Zoom, Skype or Facebook Messenger with your webcam positioned to show your stance and throw at the oche.
 
-During this session I recommend you bring something to make notes with.
+Contact me before payment to check available time slots: straighttothepointdarts@gmail.com or 07522386993.`;
 
-The web session will be held on zoom, Skype or Facebook Messenger with the webcam facing you on the oche for my observation.`;
+  const blockSessionsDescription = `A complete package of six 45-minute coaching sessions for £250 (saving £170 compared to individual sessions).
 
-  const blockSessionsDescription = `We recommend you start with a throw analysis before start sessions in most cases.
+We recommend starting with a throw analysis before beginning regular sessions for best results.
 
-This sales is for a block of six sessions at £250. All sessions are 45 minutes long.
-
-I work every weekend and weekday but please contact me to arrange a regular time slot as available is low due to demand.
-
-A personal practice routine will be created for you as well.
-
-During the session we can record your throw and play it back to you in slow-motion explaining errors made and provide feedback on how to correct them.`;
+Each session includes video recording and playback with detailed correction feedback. You'll also receive a personalized practice routine designed specifically for your development needs.`;
 
   // Buy links for each service
   const throwAnalysisBuyLink = "https://straight-to-the-point-darts.square.site/product/throw-analysis-service/3?cs=true&cst=custom";
@@ -52,32 +61,63 @@ During the session we can record your throw and play it back to you in slow-moti
 
 <div class="coaching-page">
   <div class="content-wrapper">
-    <!-- Throw Analysis Service Panel -->
+    <!-- Throw Analysis Service Panel - Blue Theme -->
     <ServicePanel 
       title="THROW ANALYSIS SERVICE" 
       highlightText="THE TURN AROUND TIME IS CURRENTLY 28 DAYS FROM RECEIVING YOUR FOOTAGE DUE TO HIGH DEMAND."
       description={throwAnalysisDescription}
-      price="£89.99"
+      price="89.99"
       instructions={throwAnalysisInstructions}
+      keyBenefits={throwAnalysisBenefits}
+      buttonText="TRANSFORM MY THROW"
+      leftPanelColor="#2BB0E9"
+      rightPanelColor="#0D3349"
+      highlightTextColor="#0D3349"
+      buttonColor="#FF6B00"
+      buttonHoverColor="#E05A00"
+      benefitsTitleColor="#FFE066"
+      benefitsTextColor="#E0FFF9"
       buyLink={throwAnalysisBuyLink}
     />
     
-    <!-- Web Sessions Panel -->
+    <!-- Web Sessions Panel - Teal/Green Theme -->
     <ServicePanel 
       title="WEB SESSION" 
       highlightText="45 MINUTES ONLINE SESSION"
       description={webSessionDescription}
-      price="£69.99"
+      price="69.99"
+      keyBenefits={webSessionBenefits}
+      buttonText="BOOK MY SESSION"
+      leftPanelColor="#00C2A8"
+      rightPanelColor="#025159"
+      highlightTextColor="#025159"
+      rightPanelImage="/public/assets/images/coaching/web_sessions.jpg"
+      imageOpacity={0.25}
+      imagePosition="top left"
+      buttonColor="#FF6B00"
+      buttonHoverColor="#E05A00"
+      benefitsTitleColor="#FFE066"
       reverse={true}
       buyLink={webSessionBuyLink}
     />
     
-    <!-- Block of Sessions Panel -->
+    <!-- Block of Sessions Panel - Purple Theme -->
     <ServicePanel 
       title="BLOCK OF SESSIONS" 
       highlightText="PLEASE CONTACT ME TO ARRANGE YOUR REGULAR TIME SLOT IN ADVANCE"
       description={blockSessionsDescription}
-      price="£350.00"
+      price="350.00"
+      keyBenefits={blockSessionsBenefits}
+      buttonText="START MY JOURNEY"
+      leftPanelColor="#8E79DC"
+      rightPanelColor="#2D2359"
+      highlightTextColor="#2D2359"
+      rightPanelImage="/public/assets/images/coaching/6 web sessions.png"
+      imageOpacity={0.2}
+      imagePosition="top right"
+      buttonColor="#FF6B00"
+      buttonHoverColor="#E05A00"
+      benefitsTitleColor="#FFE066"
       buyLink={blockSessionsBuyLink}
     />
   </div>
@@ -99,7 +139,9 @@ During the session we can record your throw and play it back to you in slow-moti
   }
 
   .content-wrapper {
-    padding: 20px 60px;
+    padding: 30px 60px;
+    max-width: 1300px;
+    margin: 0 auto;
   }
   
   footer {
