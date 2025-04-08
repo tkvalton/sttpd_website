@@ -27,7 +27,7 @@
     .review-box {
       margin: 50px 20px;
       position: relative;
-      font-family: 'Arial', sans-serif;
+      font-family: 'MontserratItalic', sans-serif;
     }
     
     .review-text-box {
@@ -46,7 +46,7 @@
     }
     
     .content {
-      padding: 15px 2px 55px 2px;
+      padding: 15px 2px 15px 2px;
       position: relative;
       display: flex;
       justify-content: center;
@@ -57,7 +57,7 @@
     .review-text {
       color: #60C3F0; /* Light blue from your project */
       font-style: italic;
-      font-size: 21px;
+      font-size: 15px;
       text-align: center;
       max-width: 300px;
       padding: 0 10px;

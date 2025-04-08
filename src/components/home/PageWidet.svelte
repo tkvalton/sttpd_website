@@ -110,31 +110,38 @@
       height: 75px;
       border-radius: 0 0 5px 5px;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      position: relative;
     }
-    
+
     .title {
       padding: 10px;
       width: 100%;
+      position: relative;
     }
-    
+
     h3 {
-      text-align: center;
-      font-family: 'Arial', sans-serif;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 45%;
+      text-align: right;
+      font-family: 'TheBoLDFont', sans-serif;
       font-weight: bold;
       margin: 0;
       transition: color 0.2s;
     }
-    
+
     .description {
-      font-size: 11px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 60%;
+      font-family: 'TheBoLDFont', sans-serif;
+      font-size: 14px;
       color: white;
-      margin: 5px 0 0;
-      max-width: 300px;
-      text-align: center;
+      margin: 0;
+      text-align: left;
     }
-  
     /* Focus style for keyboard navigation */
     .widget:focus {
       outline: 3px solid #60C3F0;

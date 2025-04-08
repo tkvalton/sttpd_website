@@ -3,7 +3,7 @@
   Features the three service panels: Throw Analysis, Web Sessions, and Block of Sessions
 -->
 <script>
-    import ReviewBox from '../components/ReviewBox.svelte';
+    import ReviewBox from '../components/general/ReviewBox.svelte';
     
     // Testimonials - same as on home page for consistency
     const testimonials = [

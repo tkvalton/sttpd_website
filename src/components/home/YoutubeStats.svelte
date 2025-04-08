@@ -31,7 +31,6 @@
         </div>
         <h2 id="youtube-heading">Check our YouTube channel</h2>
         <p class="subtitle">Since we started our YouTube channel in March 2021 our following continues to grow</p>
-        <div class="channel-name">Straight to the point darts</div>
       </div>
       
       <div class="stats" aria-label="YouTube channel statistics">
@@ -87,25 +86,22 @@
     }
     
     h2 {
+      font-family: 'TheBoLDFont', sans-serif;
       font-size: 38px;
       margin: 0 0 10px;
       text-align: center;
     }
     
     .subtitle {
+      font-family: 'TheBoLDFont', sans-serif;
       font-size: 18px;
       text-align: center;
       max-width: 450px;
       margin-bottom: 20px;
     }
     
-    .channel-name {
-      font-size: 30px;
-      font-weight: bold;
-      text-align: center;
-    }
-    
     .stats {
+      font-family: 'TheBoLDFont', sans-serif;
       display: flex;
       justify-content: space-around;
       width: 100%;
