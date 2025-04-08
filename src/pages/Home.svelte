@@ -1,12 +1,11 @@
 <!-- 
-  Improved Home page component with better responsive design
+  Improved Home page component with reusable Testimonials component
 -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
   import Hero from '../components/home/Hero.svelte';
-  import ReviewBox from '../components/general/ReviewBox.svelte';
   import PageWidget from '../components/home/PageWidet.svelte';
   import YoutubeStats from '../components/home/YoutubeStats.svelte';
+  import Testimonials from '../components/general/Testimonials.svelte';
 
   // Type for widgets
   interface Widget {
@@ -14,12 +13,6 @@
       description: string;
       image: string;
       link: string;
-  }
-
-  // Type for testimonials
-  interface Testimonial {
-      text: string;
-      name: string;
   }
 
   // Sample data for widgets
@@ -37,73 +30,6 @@
           link: '/mydarts'
       }
   ];
-      
-  // Sample testimonials from PDC pros
-  const testimonials: Testimonial[] = [
-    {
-      text: "Anything this man doesn't know about darts isn't worth knowing, a real credit to the sport!",
-      name: "Connor Scutt – PDC Professional and former Lakeside World Championship #1 seed."
-    },
-    {
-      text: "Outstanding video as always.",
-      name: "Glen Durrant – X3 BDO world champion and PDC Premier League Champion."
-    },
-    {
-      text: "That video is mental mate thank you very much!",
-      name: "PDC Pro Lewis Williams."
-    },
-    {
-      text: "Very useful thank you",
-      name: "PDC Pro Jules Van Dongen."
-    }
-  ];
-
-  // Auto-scroll testimonials
-  let scrollInterval: number | null = null;
-  let testimonialsElement: HTMLDivElement | null = null;
-
-  function startAutoScroll() {
-    if (!testimonialsElement) return;
-    
-    scrollInterval = setInterval(() => {
-      if (!testimonialsElement) return;
-      
-      const scrollAmount = 2; // pixels per interval
-      const scrollWidth = testimonialsElement.scrollWidth;
-      const clientWidth = testimonialsElement.clientWidth;
-      const maxScroll = scrollWidth - clientWidth;
-      
-      if (testimonialsElement.scrollLeft >= maxScroll) {
-        testimonialsElement.scrollLeft = 0;
-      } else {
-        testimonialsElement.scrollLeft += scrollAmount;
-      }
-    }, 50);
-  }
-
-  function stopAutoScroll() {
-    if (scrollInterval) {
-      clearInterval(scrollInterval);
-      scrollInterval = null;
-    }
-  }
-
-  // Start/stop auto-scroll based on interaction
-  function handleTestimonialsMouseEnter() {
-    stopAutoScroll();
-  }
-
-  function handleTestimonialsMouseLeave() {
-    startAutoScroll();
-  }
-  
-  onMount(() => {
-    startAutoScroll();
-  });
-  
-  onDestroy(() => {
-    stopAutoScroll();
-  });
 </script>
   
 <div class="home-container">
@@ -131,22 +57,8 @@
       <YoutubeStats />
     </section>
     
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-      <div class="testimonials-scroll" 
-           bind:this={testimonialsElement}
-           on:mouseenter={handleTestimonialsMouseEnter}
-           on:mouseleave={handleTestimonialsMouseLeave}>
-        {#each testimonials as testimonial}
-          <div class="testimonial-item">
-            <ReviewBox 
-              reviewText={testimonial.text} 
-              reviewName={testimonial.name} 
-            />
-          </div>
-        {/each}
-      </div>
-    </section>
+    <!-- Using the reusable Testimonials component -->
+    <Testimonials autoScroll={true} />
     
     <footer>
       <p>Copyright © 2025 Straight To The Point Darts</p>
@@ -184,60 +96,10 @@
     max-width: 500px; /* Maximum width to maintain design */
   }
   
-  .testimonials {
-    margin: 40px 0;
-    overflow: hidden;
-  }
-  
-  .testimonials-heading {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #13475D;
-  }
-  
-  .testimonials-scroll {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-    padding: 10px 0;
-    gap: 20px;
-  }
-  
-  .testimonials-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-  
-  .testimonial-item {
-    flex: 0 0 auto; /* Don't grow or shrink, maintain size */
-    min-width: 280px; /* Minimum width on mobile */
-    max-width: 350px; /* Maximum width */
-  }
-  
   footer {
     text-align: center;
     color: black;
     padding: 50px 0;
-  }
-  
-  /* Accessibility helper */
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-  
-  /* Focus styles for keyboard navigation */
-  .testimonials-scroll:focus {
-    outline: 3px solid #60C3F0;
-    outline-offset: 2px;
   }
   
   /* Responsive design */
@@ -264,14 +126,6 @@
     .widget-item {
       width: 100%;
       max-width: 100%;
-    }
-    
-    .testimonial-item {
-      min-width: 260px;
-    }
-    
-    .testimonials-scroll {
-      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
     }
   }
 </style>

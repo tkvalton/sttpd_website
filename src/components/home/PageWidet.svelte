@@ -1,9 +1,13 @@
 <!-- 
-  Improved PageWidget component with better responsive design
+  Improved PageWidget component with navigation and responsive design
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { spring } from 'svelte/motion';
+  import { getContext } from 'svelte';
+
+  // Add type definition for the navigation function
+  const navigate = getContext<(path: string) => void>('navigate');
   
   // Props for the widget
   export let name = 'Widget Title';
@@ -29,10 +33,21 @@
     titleColor.set(1); // Back to white color
   }
 
+  // Handle click navigation
+  function handleClick() {
+    if (navigate) {
+      navigate(link);
+    } else {
+      // Fallback if navigation function is not available in context
+      console.warn('Navigation function not found in context, using window.location');
+      window.location.href = link;
+    }
+  }
+
   // Handle keyboard navigation
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.key === ' ') {
-      window.location.href = link;
+      handleClick();
     }
   }
   
@@ -42,33 +57,35 @@
 </script>
 
 <a 
-href={link} 
-class="widget" 
-on:mouseenter={handleMouseEnter} 
-on:mouseleave={handleMouseLeave}
-on:keydown={handleKeyDown}
-aria-labelledby={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
+  href={link} 
+  class="widget" 
+  on:mouseenter={handleMouseEnter} 
+  on:mouseleave={handleMouseLeave}
+  on:click|preventDefault={handleClick}
+  on:keydown={handleKeyDown}
+  aria-labelledby={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
+  tabindex="0"
 >
-<div class="image-container">
-  <div class="image-border" aria-hidden="true"></div>
-  <div class="image-wrapper">
-    <img src={image} alt="" aria-hidden="true" />
-  </div>
-</div>
-
-<div class="info-container">
-  <div class="info-panel" style="background-color: #13475D;"> <!-- Dark blue color -->
-    <div class="title">
-      <h3 
-        id={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
-        style="font-size: {$titleSize}px; color: {isHovered ? hoverColor : colorStyle};"
-      >
-        {name}
-      </h3>
-      <p class="description">{description}</p>
+  <div class="image-container">
+    <div class="image-border" aria-hidden="true"></div>
+    <div class="image-wrapper">
+      <img src={image} alt="" aria-hidden="true" />
     </div>
   </div>
-</div>
+
+  <div class="info-container">
+    <div class="info-panel" style="background-color: #13475D;"> <!-- Dark blue color -->
+      <div class="title">
+        <h3 
+          id={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
+          style="font-size: {$titleSize}px; color: {isHovered ? hoverColor : colorStyle};"
+        >
+          {name}
+        </h3>
+        <p class="description">{description}</p>
+      </div>
+    </div>
+  </div>
 </a>
 
 <style>
@@ -80,6 +97,12 @@ aria-labelledby={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
   position: relative;
   max-width: 500px;
   margin: 0 auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.widget:hover {
+  transform: translateY(-5px);
 }
 
 .image-container {
@@ -98,7 +121,7 @@ img {
   width: 100%;
   height: calc(100% - 67px);
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 .info-container {
@@ -149,6 +172,7 @@ h3 {
 .widget:focus {
   outline: 3px solid #60C3F0;
   outline-offset: 2px;
+  transform: translateY(-5px);
 }
 
 /* Responsive styles */

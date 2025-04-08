@@ -1,29 +1,9 @@
 <!-- 
-  Corrected Darts Coaching page that precisely matches the design mockup
+  Updated Darts Coaching page using the reusable Testimonials component
 -->
 <script lang="ts">
-  import ReviewBox from '../components/general/ReviewBox.svelte';
   import ServicePanel from '../components/darts_coaching/ServicePanel.svelte';
-  
-  // Testimonials - same as on home page for consistency
-  const testimonials = [
-    {
-      text: "Anything this man doesn't know about darts isn't worth knowing, a real credit to the sport!",
-      name: "Connor Scutt – PDC Professional and former Lakeside World Championship #1 seed."
-    },
-    {
-      text: "Outstanding video as always.",
-      name: "Glen Durrant – X3 BDO world champion and PDC Premier League Champion."
-    },
-    {
-      text: "That video is mental mate thank you very much!",
-      name: "PDC Pro Lewis Williams."
-    },
-    {
-      text: "Very useful thank you",
-      name: "PDC Pro Jules Van Dongen."
-    }
-  ];
+  import Testimonials from '../components/general/Testimonials.svelte';
 
   // Instructions for the Throw Analysis service
   const throwAnalysisInstructions = [
@@ -63,6 +43,11 @@ I work every weekend and weekday but please contact me to arrange a regular time
 A personal practice routine will be created for you as well.
 
 During the session we can record your throw and play it back to you in slow-motion explaining errors made and provide feedback on how to correct them.`;
+
+  // Buy links for each service
+  const throwAnalysisBuyLink = "https://straight-to-the-point-darts.square.site/product/throw-analysis-service/3?cs=true&cst=custom";
+  const webSessionBuyLink = "https://straight-to-the-point-darts.square.site/product/web-cam-tuition/4?cp=true&sa=false&sbp=false&q=false&category_id=2";
+  const blockSessionsBuyLink = "https://straight-to-the-point-darts.square.site/product/block-of-six-sessions-/5?cp=true&sa=false&sbp=false&q=false&category_id=2";
 </script>
 
 <div class="coaching-page">
@@ -74,6 +59,7 @@ During the session we can record your throw and play it back to you in slow-moti
       description={throwAnalysisDescription}
       price="£89.99"
       instructions={throwAnalysisInstructions}
+      buyLink={throwAnalysisBuyLink}
     />
     
     <!-- Web Sessions Panel -->
@@ -83,6 +69,7 @@ During the session we can record your throw and play it back to you in slow-moti
       description={webSessionDescription}
       price="£69.99"
       reverse={true}
+      buyLink={webSessionBuyLink}
     />
     
     <!-- Block of Sessions Panel -->
@@ -91,25 +78,12 @@ During the session we can record your throw and play it back to you in slow-moti
       highlightText="PLEASE CONTACT ME TO ARRANGE YOUR REGULAR TIME SLOT IN ADVANCE"
       description={blockSessionsDescription}
       price="£350.00"
+      buyLink={blockSessionsBuyLink}
     />
   </div>
   
-  <!-- Testimonials Section -->
-  <section class="testimonials-section">
-    <div class="testimonials-container">
-      <h2 class="testimonials-heading">TESTIMONIALS</h2>
-      <div class="testimonials-scroll">
-        {#each testimonials as testimonial}
-          <div class="testimonial-item">
-            <ReviewBox 
-              reviewText={testimonial.text} 
-              reviewName={testimonial.name} 
-            />
-          </div>
-        {/each}
-      </div>
-    </div>
-  </section>
+  <!-- Using the reusable Testimonials component -->
+  <Testimonials autoScroll={true} />
   
   <footer>
     <div class="footer-container">
@@ -125,47 +99,7 @@ During the session we can record your throw and play it back to you in slow-moti
   }
 
   .content-wrapper {
-    background-color: #13475D;
     padding: 20px 60px;
-  }
-  
-  .testimonials-section {
-    background-color: white;
-    padding: 60px 0;
-  }
-  
-  .testimonials-container {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .testimonials-heading {
-    text-align: center;
-    margin-bottom: 40px;
-    color: #13475D;
-    font-family: 'TheBoLDFont', sans-serif;
-    font-size: 32px;
-  }
-  
-  .testimonials-scroll {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-    padding: 10px 0;
-    gap: 30px;
-  }
-  
-  .testimonials-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-  
-  .testimonial-item {
-    flex: 0 0 auto;
-    min-width: 300px;
-    max-width: 350px;
   }
   
   footer {
@@ -187,7 +121,6 @@ During the session we can record your throw and play it back to you in slow-moti
       padding: 20px 40px;
     }
     
-    .testimonials-container,
     .footer-container {
       padding: 0 40px;
     }
@@ -198,22 +131,8 @@ During the session we can record your throw and play it back to you in slow-moti
       padding: 15px;
     }
     
-    .testimonials-container,
     .footer-container {
       padding: 0 15px;
-    }
-    
-    .testimonials-section {
-      padding: 40px 0;
-    }
-    
-    .testimonials-heading {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
-    
-    .testimonial-item {
-      min-width: 260px;
     }
   }
 </style>

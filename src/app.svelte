@@ -3,7 +3,7 @@
   import Home from './pages/Home.svelte';
   import DartsCoaching from './pages/DartsCoaching.svelte';
   import Header from './components/general/Header.svelte';
-  
+  import { setContext } from 'svelte';
   const currentPath = writable('/');
   
   // Function to handle navigation
@@ -14,6 +14,8 @@
     // Scroll to top when navigating
     window.scrollTo(0, 0);
   }
+
+  setContext('navigate', handleNavigation);
 </script>
 
 <div class="app-container">
