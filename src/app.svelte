@@ -25,9 +25,12 @@
   <div class="content-area">
     <div class="main-content">
       {#if $currentPath === '/'}
-        <Home />
+        <Home onNavigate={handleNavigation} />
       {:else if $currentPath === '/coaching'}
         <DartsCoaching />
+      {:else if $currentPath === '/mydarts'}
+        <!-- MyDarts page - you can create this component later -->
+        <div>My Darts Page - Coming Soon</div>
       {:else}
         <!-- Fallback or 404 page -->
         <div>Page not found</div>
@@ -58,7 +61,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    background-color: #13475D; /* Dark blue background */
     width: 100%;
     overflow-x: hidden;
   }
@@ -74,41 +76,10 @@
     min-height: 100vh;
   }
   
-  .banner-area {
-    background-color: white;
+  main {
     width: 100%;
-  }
-  
-  .content-area {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex: 1;
-  }
-  
-  .main-content {
-    width: 100%;
-    max-width: 1200px;
-    background-color: white;
-    min-height: 100%;
-  }
-  
-  /* Media queries to match the mockup perfectly */
-  @media (min-width: 1400px) {
-    .main-content {
-      max-width: 100%; /* Adjust based on your mockup */
-    }
-  }
-  
-  @media (max-width: 1200px) {
-    .main-content {
-      max-width: 85%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .main-content {
-      max-width: 100%;
-    }
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 </style>
