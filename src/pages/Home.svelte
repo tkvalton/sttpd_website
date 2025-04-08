@@ -133,7 +133,6 @@
     
     <!-- Testimonials Section -->
     <section class="testimonials">
-      <h2 class="testimonials-heading">What People Say About Us</h2>
       <div class="testimonials-scroll" 
            bind:this={testimonialsElement}
            on:mouseenter={handleTestimonialsMouseEnter}

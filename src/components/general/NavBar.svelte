@@ -186,6 +186,7 @@
     width: 100vw;
     left: 0;
     right: 0;
+    min-height: 51px;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     background-color: #60C3F0;
@@ -300,7 +301,7 @@
     
     /* Adjust placeholder height for mobile */
     .navbar-placeholder {
-      height: 58px; /* Adjusted for mobile navbar height plus divider */
+      height: 0px; /* Adjusted for mobile navbar height plus divider */
     }
   }
 </style>
