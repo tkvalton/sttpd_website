@@ -1,35 +1,57 @@
+/* Base responsive settings */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #ffffff;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Adding responsive base units */
+  --container-padding-desktop: 60px;
+  --container-padding-tablet: 40px;
+  --container-padding-mobile: 20px;
+  --content-max-width: 1200px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+/* Ensure proper box-sizing for all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+/* Reset margins and paddings */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
+/* Make all images responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+#app {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+/* Existing styles */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -37,13 +59,6 @@ h1 {
 
 .card {
   padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 
 button {
@@ -65,6 +80,22 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 1.8em;
+  }
+  h3 {
+    font-size: 1.4em;
+  }
+  p, button, input, select, textarea {
+    font-size: 0.95em;
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -78,6 +109,7 @@ button:focus-visible {
   }
 }
 
+/* Font definitions */
 @font-face {
   font-family: 'TheBoLDFont';
   src: url('/assets/fonts/THEBOLDFONT-FREEVERSION.woff') format('woff');
@@ -100,4 +132,129 @@ button:focus-visible {
   font-weight: 600;
   font-style: italic;
   font-display: swap;
+}
+
+/* Container class for consistent padding */
+.container {
+  width: 100%;
+  padding-left: var(--container-padding-desktop);
+  padding-right: var(--container-padding-desktop);
+  margin: 0 auto;
+  max-width: var(--content-max-width);
+}
+
+/* Responsive container padding */
+@media (max-width: 1200px) {
+  .container {
+    padding-left: var(--container-padding-tablet);
+    padding-right: var(--container-padding-tablet);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--container-padding-mobile);
+    padding-right: var(--container-padding-mobile);
+  }
+}
+
+/* Utility classes for responsive flexbox layouts */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* Gap utilities */
+.gap-sm {
+  gap: 10px;
+}
+
+.gap-md {
+  gap: 20px;
+}
+
+.gap-lg {
+  gap: 30px;
+}
+
+/* Responsive column layouts */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.col {
+  padding-left: 10px;
+  padding-right: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.col-1 { width: 8.333%; }
+.col-2 { width: 16.666%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.333%; }
+.col-5 { width: 41.666%; }
+.col-6 { width: 50%; }
+.col-7 { width: 58.333%; }
+.col-8 { width: 66.666%; }
+.col-9 { width: 75%; }
+.col-10 { width: 83.333%; }
+.col-11 { width: 91.666%; }
+.col-12 { width: 100%; }
+
+/* Responsive column breakpoints */
+@media (max-width: 768px) {
+  .col-sm-12 { width: 100%; }
+  .col-sm-6 { width: 50%; }
+  
+  .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  
+  .col {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+/* Responsive visibility classes */
+.hide-on-mobile {
+  display: initial;
+}
+
+.show-on-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+  
+  .show-on-mobile {
+    display: initial;
+  }
 }

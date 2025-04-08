@@ -11,29 +11,30 @@
     $currentPath = path;
     // Update browser URL without reload
     window.history.pushState({}, '', path);
+    // Scroll to top when navigating
+    window.scrollTo(0, 0);
   }
 </script>
 
 <div class="app-container">
-  <div class="banner-area">
-    <Header 
-      currentPath={$currentPath} 
-      onNavigate={handleNavigation} 
-    />
-  </div>
+  <Header 
+    currentPath={$currentPath} 
+    onNavigate={handleNavigation} 
+  />
   
   <div class="content-area">
     <div class="main-content">
       {#if $currentPath === '/'}
-        <Home onNavigate={handleNavigation} />
+        <Home />
       {:else if $currentPath === '/coaching'}
         <DartsCoaching />
-      {:else if $currentPath === '/mydarts'}
-        <!-- MyDarts page - you can create this component later -->
-        <div>My Darts Page - Coming Soon</div>
       {:else}
         <!-- Fallback or 404 page -->
-        <div>Page not found</div>
+        <div class="page-not-found">
+          <h1>Page Not Found</h1>
+          <p>Sorry, the page you were looking for doesn't exist.</p>
+          <button on:click={() => handleNavigation('/')}>Return to Home</button>
+        </div>
       {/if}
     </div>
   </div>
@@ -61,7 +62,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    background-color: #13475D; /* Dark blue background */
     width: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
   }
   
@@ -76,10 +79,39 @@
     min-height: 100vh;
   }
   
-  main {
+  .content-area {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 0 20px;
+    flex: 1;
+  }
+  
+  .main-content {
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    min-height: 100%;
+  }
+  
+  .page-not-found {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  
+  .page-not-found button {
+    margin-top: 20px;
+    background-color: #60C3F0;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Media queries for responsive layout */
+  @media (max-width: 1200px) {
+    .main-content {
+      max-width: 100%;
+    }
   }
 </style>

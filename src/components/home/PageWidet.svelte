@@ -1,6 +1,5 @@
 <!-- 
-  PageWidget component with accessibility fixes
-  Represents a clickable content card with hover animations
+  Improved PageWidget component with better responsive design
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
@@ -11,8 +10,6 @@
   export let description = '';
   export let image = '';
   export let link = '/';
-  export let onNavigate: ((path: string) => void) | null = null;
-  export let external = false;
   
   // Animation state
   let isHovered = false;
@@ -32,34 +29,10 @@
     titleColor.set(1); // Back to white color
   }
 
-  // Handle click event
-  function handleClick(event: MouseEvent) {
-    if (external) {
-      // For external links, let the default browser behavior handle it
-      // The link will open in a new tab because of target="_blank"
-      return;
-    }
-    
-    // For internal links, prevent default and use the router
-    event.preventDefault();
-    if (onNavigate) {
-      onNavigate(link);
-    } else {
-      // Fallback if onNavigate is not provided
-      window.location.href = link;
-    }
-  }
-  
   // Handle keyboard navigation
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.key === ' ') {
-      if (external) {
-        window.open(link, '_blank', 'noopener,noreferrer');
-      } else if (onNavigate) {
-        onNavigate(link);
-      } else {
-        window.location.href = link;
-      }
+      window.location.href = link;
     }
   }
   
@@ -73,11 +46,8 @@ href={link}
 class="widget" 
 on:mouseenter={handleMouseEnter} 
 on:mouseleave={handleMouseLeave}
-on:click={handleClick}
 on:keydown={handleKeyDown}
 aria-labelledby={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
-target={external ? "_blank" : null}
-rel={external ? "noopener noreferrer" : null}
 >
 <div class="image-container">
   <div class="image-border" aria-hidden="true"></div>
@@ -94,9 +64,6 @@ rel={external ? "noopener noreferrer" : null}
         style="font-size: {$titleSize}px; color: {isHovered ? hoverColor : colorStyle};"
       >
         {name}
-        {#if external}
-          <span class="external-icon" aria-hidden="true">↗</span>
-        {/if}
       </h3>
       <p class="description">{description}</p>
     </div>
@@ -108,10 +75,11 @@ rel={external ? "noopener noreferrer" : null}
 .widget {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 100%;
   text-decoration: none;
-  margin: 20px;
   position: relative;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .image-container {
@@ -139,7 +107,7 @@ img {
 }
 
 .info-panel {
-  height: 75px;
+  min-height: 75px;
   border-radius: 0 0 5px 5px;
   display: flex;
   position: relative;
@@ -149,6 +117,8 @@ img {
   padding: 10px;
   width: 100%;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 h3 {
@@ -163,17 +133,6 @@ h3 {
   transition: color 0.2s;
 }
 
-.external-icon {
-  font-size: 14px;
-  display: inline-block;
-  margin-left: 4px;
-  transition: transform 0.2s ease;
-}
-
-.widget:hover .external-icon {
-  transform: translate(2px, -2px);
-}
-
 .description {
   position: absolute;
   top: 10px;
@@ -185,9 +144,67 @@ h3 {
   margin: 0;
   text-align: left;
 }
+
 /* Focus style for keyboard navigation */
 .widget:focus {
   outline: 3px solid #60C3F0;
   outline-offset: 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .widget {
+    max-width: 100%;
+  }
+  
+  .image-container {
+    height: 250px; /* Smaller height on mobile */
+  }
+  
+  .info-panel {
+    min-height: 90px; /* More room for text on mobile */
+  }
+  
+  h3 {
+    font-size: 18px !important; /* Override animated size on mobile */
+    width: 40%;
+  }
+  
+  .description {
+    font-size: 12px;
+    width: 65%;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-container {
+    height: 200px; /* Even smaller on very small screens */
+  }
+  
+  .info-panel {
+    min-height: 100px; /* More room for description */
+  }
+  
+  .title {
+    flex-direction: column;
+    padding: 15px 10px;
+  }
+  
+  h3 {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    text-align: center;
+  }
 }
 </style>

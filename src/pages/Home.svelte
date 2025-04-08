@@ -1,5 +1,5 @@
 <!-- 
-  Home page component with improved responsive layout
+  Improved Home page component with better responsive design
 -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
@@ -8,16 +8,12 @@
   import PageWidget from '../components/home/PageWidet.svelte';
   import YoutubeStats from '../components/home/YoutubeStats.svelte';
 
-  // Optional prop to receive the navigation handler from App.svelte
-  export let onNavigate: (path: string) => void = () => {};
-
   // Type for widgets
   interface Widget {
       name: string;
       description: string;
       image: string;
       link: string;
-      external?: boolean;
   }
 
   // Type for testimonials
@@ -32,15 +28,13 @@
           name: 'Darts Coaching',
           description: 'With our exclusive Darts Coaching services, we can help you improve your game.',
           image: '/assets/images/coaching/web_sessions.jpg',
-          link: '/coaching',
-          external: false
+          link: '/coaching'
       },
       {
           name: 'My Darts',
           description: 'Handmade by CustomMade Darts, these premium darts are designed to be very front weighted to help the dart travel to the board with little effort.',
           image: '/assets/images/darts/darts1-1.png',
-          link: '/mydarts',
-          external: false
+          link: '/mydarts'
       }
   ];
       
@@ -63,7 +57,7 @@
       name: "PDC Pro Jules Van Dongen."
     }
   ];
-  
+
   // Auto-scroll testimonials
   let scrollInterval: number | null = null;
   let testimonialsElement: HTMLDivElement | null = null;
@@ -114,19 +108,21 @@
   
 <div class="home-container">
   <main class="home-page">
-    <Hero />
+    <section class="hero-section">
+      <Hero />
+    </section>
     
     <section class="widgets" aria-label="Featured services">
       <div class="widgets-container">
         {#each widgets as widget}
-          <PageWidget 
-            name={widget.name} 
-            description={widget.description} 
-            image={widget.image}
-            link={widget.link}
-            external={widget.external || false}
-            onNavigate={onNavigate}
-          />
+          <div class="widget-item">
+            <PageWidget 
+              name={widget.name} 
+              description={widget.description} 
+              image={widget.image}
+              link={widget.link}
+            />
+          </div>
         {/each}
       </div>
     </section>
@@ -137,20 +133,18 @@
     
     <!-- Testimonials Section -->
     <section class="testimonials">
-      <h2 class="testimonial-heading">What the professionals say</h2>
-      <div 
-        class="testimonials-scroll" 
-        role="region" 
-        aria-label="Testimonials from darts professionals"
-        bind:this={testimonialsElement}
-        on:mouseenter={handleTestimonialsMouseEnter}
-        on:mouseleave={handleTestimonialsMouseLeave}
-      >
+      <h2 class="testimonials-heading">What People Say About Us</h2>
+      <div class="testimonials-scroll" 
+           bind:this={testimonialsElement}
+           on:mouseenter={handleTestimonialsMouseEnter}
+           on:mouseleave={handleTestimonialsMouseLeave}>
         {#each testimonials as testimonial}
-          <ReviewBox 
-            reviewText={testimonial.text} 
-            reviewName={testimonial.name} 
-          />
+          <div class="testimonial-item">
+            <ReviewBox 
+              reviewText={testimonial.text} 
+              reviewName={testimonial.name} 
+            />
+          </div>
         {/each}
       </div>
     </section>
@@ -165,35 +159,41 @@
   .home-container {
     width: 100%;
     box-sizing: border-box;
-    padding: 0 60px; /* Default padding for larger screens */
+    padding: 0 60px; /* Desktop padding */
   }
 
   .home-page {
     width: 100%;
-    max-width: 1400px; /* Add a max-width to control content width */
-    margin: 0 auto; /* Center the content */
     font-family: 'Arial', sans-serif;
   }
-  
-  .testimonial-heading {
-    font-family: 'TheBoLDFont', sans-serif;
-    color: #13475D;
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 20px;
+
+  .hero-section {
+    margin: 20px 0;
   }
     
   .widgets-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     margin: 40px 0;
-    flex-wrap: wrap; /* Allow widgets to wrap on smaller screens */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
+  
+  .widget-item {
+    flex: 1;
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 500px; /* Maximum width to maintain design */
   }
   
   .testimonials {
-    margin: 60px 0;
+    margin: 40px 0;
     overflow: hidden;
+  }
+  
+  .testimonials-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #13475D;
   }
   
   .testimonials-scroll {
@@ -203,19 +203,36 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     padding: 10px 0;
-    gap: 20px; /* Add gap between testimonials */
+    gap: 20px;
   }
   
   .testimonials-scroll::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
   }
   
+  .testimonial-item {
+    flex: 0 0 auto; /* Don't grow or shrink, maintain size */
+    min-width: 280px; /* Minimum width on mobile */
+    max-width: 350px; /* Maximum width */
+  }
+  
   footer {
     text-align: center;
     color: black;
     padding: 50px 0;
-    margin-top: 40px;
-    border-top: 1px solid #eee;
+  }
+  
+  /* Accessibility helper */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   
   /* Focus styles for keyboard navigation */
@@ -224,54 +241,38 @@
     outline-offset: 2px;
   }
   
-  /* Responsive design - adjust padding and layout based on screen size */
+  /* Responsive design */
   @media (max-width: 1200px) {
     .home-container {
-      padding: 0 40px; /* Reduce padding on medium screens */
+      padding: 0 40px; /* Tablet padding */
     }
     
     .widgets-container {
-      gap: 20px;
-    }
-  }
-  
-  @media (max-width: 900px) {
-    .home-container {
-      padding: 0 30px;
-    }
-    
-    .testimonial-heading {
-      font-size: 28px;
+      justify-content: space-around;
     }
   }
   
   @media (max-width: 768px) {
     .home-container {
-      padding: 0 20px; /* Minimal padding on mobile */
+      padding: 0 20px; /* Mobile padding */
     }
     
     .widgets-container {
       flex-direction: column;
       align-items: center;
-      gap: 40px;
     }
     
-    .testimonial-heading {
-      font-size: 24px;
+    .widget-item {
+      width: 100%;
+      max-width: 100%;
     }
     
-    footer {
-      padding: 30px 0;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .home-container {
-      padding: 0 15px;
+    .testimonial-item {
+      min-width: 260px;
     }
     
-    .testimonial-heading {
-      font-size: 22px;
+    .testimonials-scroll {
+      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
     }
   }
 </style>
