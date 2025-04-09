@@ -1,6 +1,5 @@
 <!-- src/components/home/DuzzaBanner.svelte -->
-<script lang="ts">
-    // You can add any necessary props or functionality here
+<script>
     export let logoPath = "/assets/logos/duzza_logo.png";
     export let altText = "Duzza Logo";
   </script>
@@ -19,8 +18,8 @@
   <style>
     .duzza-banner {
       width: 100%;
-      background-color: #001235; /* Dark blue to match your site theme */
-      border-radius: 0 0 10px 10px; /* Only bottom corners are rounded */
+      background-color: #001235;
+      border-radius: 0 0 10px 10px;
       overflow: hidden;
       margin-bottom: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -58,7 +57,6 @@
       height: auto;
     }
   
-    /* Responsive adjustments */
     @media (min-width: 768px) {
       .banner-content {
         flex-direction: row;

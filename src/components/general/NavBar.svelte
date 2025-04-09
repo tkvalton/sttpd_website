@@ -140,9 +140,15 @@
 
 <style>
   /* Container for the entire navbar component including the divider */
+  :global(body), :global(html) {
+    margin: 0;
+    padding: 0;
+  }
+
   .navbar-component {
     position: relative;
     width: 100%;
+    margin-top: 0;
   }
   
   /* Styles for sticky state of the entire component */
@@ -170,10 +176,11 @@
     width: 100vw;
     left: 0;
     right: 0;
+    top: 0;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     background-color: #13475D;
-    z-index: 1001; /* Slightly higher than navbar to ensure it's on top */
+    z-index: 1001;
   }
   
   .divider {

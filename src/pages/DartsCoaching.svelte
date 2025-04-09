@@ -194,7 +194,7 @@ Each session includes video recording and playback with detailed correction feed
           leftPanelColor="#8E79DC"
           rightPanelColor="#2D2359"
           highlightTextColor="#2D2359"
-          rightPanelImage="/assets/images/coaching/6 web sessions.png"
+          rightPanelImage="/assets/images/coaching/6_web_sessions.png"
           imageOpacity={0.2}
           imagePosition="top right"
           buttonColor="#FF6B00"
