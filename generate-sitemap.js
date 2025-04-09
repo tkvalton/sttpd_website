@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Base URL of your website - update this with your actual domain
-const BASE_URL = 'https://straighttothepointdarts.com';
+const BASE_URL = 'https://straighttothepointdarts.co.uk';
 // Current date in YYYY-MM-DD format
 const TODAY = new Date().toISOString().split('T')[0];
 
