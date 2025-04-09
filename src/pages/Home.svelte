@@ -7,6 +7,7 @@
   import Testimonials from '../components/general/Testimonials.svelte';
   import PageTransition from '../components/general/PageTransition.svelte';
   import AnimatedSection from '../components/general/AnimatedSection.svelte';
+  import DuzzaBanner from '../components/home/DuzzaBanner.svelte';
 
   // Type for widgets
   interface Widget {
@@ -36,16 +37,9 @@
 <div class="home-container">
   <PageTransition let:isVisible let:stagger>
     <main class="home-page">
-      <!-- New Banner Section -->
-      <AnimatedSection {isVisible} index={-1} className="duzza-banner">
-        <div class="banner-container">
-          <div class="banner-text">
-            <p>Part of the Glen Durrant Coaching Team</p>
-          </div>
-          <div class="banner-logo">
-            <img src="/assets/logos/duzza_logo.jpg" alt="Duzza Logo" />
-          </div>
-        </div>
+      <!-- Updated Banner Section using the new DuzzaBanner component -->
+      <AnimatedSection {isVisible} index={-1}>
+        <DuzzaBanner />
       </AnimatedSection>
 
       <AnimatedSection {isVisible} index={0} className="hero-section">
@@ -72,8 +66,7 @@
       </AnimatedSection>
       
       <AnimatedSection {isVisible} index={3}>
-        <!-- Using the reusable Testimonials component -->
-        
+        <Testimonials />
       </AnimatedSection>
       
       <AnimatedSection {isVisible} index={4}>
@@ -93,43 +86,6 @@
   .home-page {
     width: 100%;
     font-family: 'Arial', sans-serif;
-  }
-
-  /* New Banner Styles */
-  .duzza-banner {
-    background-color: #f4f4f4;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .banner-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-height: 50vh;
-    padding: 20px;
-  }
-
-  .banner-text {
-    flex: 1;
-    text-align: center;
-    font-family: 'TheBoLDFont', sans-serif;
-    font-size: 24px;
-    color: #13475D;
-  }
-
-  .banner-logo {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .banner-logo img {
-    max-width: 50%;
-    max-height: 300px;
-    object-fit: contain;
   }
     
   .widgets-container {
@@ -163,20 +119,6 @@
     .widgets-container {
       justify-content: space-around;
     }
-
-    .banner-container {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .banner-text {
-      margin-bottom: 20px;
-      font-size: 20px;
-    }
-
-    .banner-logo img {
-      max-width: 70%;
-    }
   }
   
   @media (max-width: 768px) {
@@ -192,14 +134,6 @@
     .widget-item {
       width: 100%;
       max-width: 100%;
-    }
-
-    .banner-text {
-      font-size: 18px;
-    }
-
-    .banner-logo img {
-      max-width: 90%;
     }
   }
 </style>
