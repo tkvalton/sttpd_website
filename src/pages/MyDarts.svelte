@@ -2,6 +2,7 @@
 <script lang="ts">
     import Testimonials from '../components/general/Testimonials.svelte';
     import DartsGallery from '../components/my_darts/DartsGallery.svelte';
+    import Footer from '../components/general/Footer.svelte';
     import { onMount } from 'svelte';
     
     // Define the type for the gallery change event detail
@@ -137,13 +138,9 @@
     </div>
     
     <!-- Using the reusable Testimonials component -->
-    <Testimonials autoScroll={true} />
+    <Testimonials/>
     
-    <footer>
-      <div class="footer-container">
-        <p>Copyright © 2025 Straight To The Point Darts</p>
-      </div>
-    </footer>
+    <Footer />
   </div>
   
   <style>
@@ -399,19 +396,6 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 14px;
       color: #555;
-    }
-    
-    footer {
-      text-align: center;
-      color: black;
-      padding: 40px 0;
-      border-top: 1px solid #eaeaea;
-    }
-    
-    .footer-container {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 20px;
     }
     
     /* Responsive styles */

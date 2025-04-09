@@ -1,0 +1,7 @@
+# robots.txt for Straight To The Point Darts
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://straighttothepointdarts.co.uk/sitemap.xml

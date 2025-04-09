@@ -1,6 +1,7 @@
 <!-- src/pages/DartsCoaching.svelte -->
 <script lang="ts">
   import ServicePanel from '../components/darts_coaching/ServicePanel.svelte';
+  import Footer from '../components/general/Footer.svelte';
   import Testimonials from '../components/general/Testimonials.svelte';
   import PageTransition from '../components/general/PageTransition.svelte';
   import AnimatedSection from '../components/general/AnimatedSection.svelte';
@@ -239,11 +240,9 @@ Each session includes video recording and playback with detailed correction feed
     </AnimatedSection>
     
     <AnimatedSection {isVisible} index={9}>
-      <footer>
-        <div class="footer-container">
-          <p>Copyright © 2025 Straight To The Point Darts</p>
-        </div>
-      </footer>
+      <AnimatedSection {isVisible} index={9}>
+        <Footer />
+      </AnimatedSection>
     </AnimatedSection>
   </PageTransition>
 </div>
@@ -468,20 +467,6 @@ Each session includes video recording and playback with detailed correction feed
     line-height: 1.5;
   }
   
-  /* Footer Styles */
-  footer {
-    text-align: center;
-    color: black;
-    padding: 40px 0;
-    border-top: 1px solid #eaeaea;
-  }
-  
-  .footer-container {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
   /* Responsive styles */
   @media (max-width: 1200px) {
     .content-wrapper {
@@ -496,9 +481,6 @@ Each session includes video recording and playback with detailed correction feed
       font-size: 16px;
     }
     
-    .footer-container {
-      padding: 0 40px;
-    }
   }
   
   @media (max-width: 768px) {
@@ -552,8 +534,5 @@ Each session includes video recording and playback with detailed correction feed
       font-size: 14px;
     }
     
-    .footer-container {
-      padding: 0 15px;
-    }
   }
 </style>

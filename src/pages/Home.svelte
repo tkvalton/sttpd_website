@@ -3,6 +3,7 @@
   import Hero from '../components/home/Hero.svelte';
   import PageWidget from '../components/home/PageWidet.svelte';
   import YoutubeStats from '../components/home/YoutubeStats.svelte';
+  import Footer from '../components/general/Footer.svelte';
   import Testimonials from '../components/general/Testimonials.svelte';
   import PageTransition from '../components/general/PageTransition.svelte';
   import AnimatedSection from '../components/general/AnimatedSection.svelte';
@@ -65,9 +66,7 @@
       </AnimatedSection>
       
       <AnimatedSection {isVisible} index={4}>
-        <footer>
-          <p>Copyright © 2025 Straight To The Point Darts</p>
-        </footer>
+        <Footer />
       </AnimatedSection>
     </main>
   </PageTransition>
@@ -105,12 +104,6 @@
   :global(.visible .widget-item) {
     opacity: 1;
     transform: translateY(0);
-  }
-  
-  footer {
-    text-align: center;
-    color: black;
-    padding: 50px 0;
   }
   
   /* Responsive design */
