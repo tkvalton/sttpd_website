@@ -1,8 +1,7 @@
 <!-- 
-  Improved PageWidget component with navigation and responsive design
+  Enhanced PageWidget component with title overlay
 -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { spring } from 'svelte/motion';
   import { getContext } from 'svelte';
 
@@ -56,179 +55,225 @@
   $: hoverColor = `rgb(${96}, ${195}, ${240})`; // #60C3F0 light blue
 </script>
 
-<a 
-  href={link} 
+<div 
   class="widget" 
   on:mouseenter={handleMouseEnter} 
   on:mouseleave={handleMouseLeave}
   on:click|preventDefault={handleClick}
   on:keydown={handleKeyDown}
-  aria-labelledby={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
+  role="button"
   tabindex="0"
+  aria-label={`Navigate to ${name}`}
 >
-  <div class="image-container">
-    <div class="image-border" aria-hidden="true"></div>
-    <div class="image-wrapper">
-      <img src={image} alt="" aria-hidden="true" />
-    </div>
-  </div>
-
-  <div class="info-container">
-    <div class="info-panel" style="background-color: #13475D;"> <!-- Dark blue color -->
-      <div class="title">
+  <div class="widget-inner">
+    <div class="image-container" class:hovered={isHovered}>
+      <div class="image-wrapper">
+        <img 
+          src={image} 
+          alt="" 
+          class:hovered={isHovered}
+        />
+      </div>
+      <div class="image-overlay" class:active={isHovered}></div>
+      <div class="image-title">
         <h3 
-          id={`widget-title-${name.toLowerCase().replace(/\s+/g, '-')}`}
           style="font-size: {$titleSize}px; color: {isHovered ? hoverColor : colorStyle};"
         >
           {name}
         </h3>
-        <p class="description">{description}</p>
+      </div>
+    </div>
+
+    <div class="info-container">
+      <div class="info-panel" class:hovered={isHovered}>
+        <div class="content">
+          <p>{description}</p>
+        </div>
+        <div class="hover-indicator" class:active={isHovered}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </div>
       </div>
     </div>
   </div>
-</a>
+</div>
 
 <style>
-.widget {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  text-decoration: none;
-  position: relative;
-  max-width: 500px;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.widget:hover {
-  transform: translateY(-5px);
-}
-
-.image-container {
-  position: relative;
-  height: 300px;
-  margin-bottom: -70px; /* Overlap with info container */
-}
-
-.image-wrapper {
-  position: relative;
-  height: 100%;
-  z-index: 1;
-}
-
-img {
-  width: 100%;
-  height: calc(100% - 67px);
-  object-fit: cover;
-  border-radius: 5px 5px 0 0;
-}
-
-.info-container {
-  position: relative;
-  z-index: 2;
-}
-
-.info-panel {
-  min-height: 75px;
-  border-radius: 0 0 5px 5px;
-  display: flex;
-  position: relative;
-}
-
-.title {
-  padding: 10px;
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-h3 {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 45%;
-  text-align: right;
-  font-family: 'TheBoLDFont', sans-serif;
-  font-weight: bold;
-  margin: 0;
-  transition: color 0.2s;
-}
-
-.description {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 60%;
-  font-family: 'TheBoLDFont', sans-serif;
-  font-size: 14px;
-  color: white;
-  margin: 0;
-  text-align: left;
-}
-
-/* Focus style for keyboard navigation */
-.widget:focus {
-  outline: 3px solid #60C3F0;
-  outline-offset: 2px;
-  transform: translateY(-5px);
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
   .widget {
-    max-width: 100%;
+    display: block;
+    width: 100%;
+    height: 100%; /* Ensure full height */
+    max-width: 500px;
+    min-height: 400px; /* Set a minimum height */
+    margin: 0 auto;
+    cursor: pointer;
+    perspective: 1000px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   }
-  
-  .image-container {
-    height: 250px; /* Smaller height on mobile */
-  }
-  
-  .info-panel {
-    min-height: 90px; /* More room for text on mobile */
-  }
-  
-  h3 {
-    font-size: 18px !important; /* Override animated size on mobile */
-    width: 40%;
-  }
-  
-  .description {
-    font-size: 12px;
-    width: 65%;
-  }
-}
 
-@media (max-width: 480px) {
-  .image-container {
-    height: 200px; /* Even smaller on very small screens */
+  .widget:hover,
+  .widget:focus-visible {
+    transform: translateY(-10px) rotateX(2deg);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
   }
-  
-  .info-panel {
-    min-height: 100px; /* More room for description */
+
+  .widget:focus {
+    outline: 3px solid #60C3F0;
+    outline-offset: 2px;
   }
-  
-  .title {
+
+  .widget-inner {
+    display: flex;
     flex-direction: column;
-    padding: 15px 10px;
-  }
-  
-  h3 {
-    position: relative;
-    top: auto;
-    right: auto;
     width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
+    height: 100%;
   }
-  
-  .description {
+
+  .image-container {
     position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    text-align: center;
+    height: 300px;
+    min-height: 250px; /* Ensure minimum image height */
+    overflow: hidden;
+    transition: all 0.4s ease;
   }
-}
+
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .image-container.hovered img {
+    transform: scale(1.1);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(19, 71, 93, 0);
+    transition: background-color 0.4s ease;
+    z-index: 2;
+  }
+
+  .image-overlay.active {
+    background-color: rgba(19, 71, 93, 0.2);
+  }
+
+  .image-title {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 3;
+    background-color: rgba(19, 71, 93, 0.7);
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+
+  .image-title h3 {
+    margin: 0;
+    font-family: 'TheBoLDFont', sans-serif;
+    font-size: 18px;
+    transition: color 0.2s, font-size 0.2s;
+  }
+
+  .info-container {
+    flex-grow: 1; /* Allow info panel to expand */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0; /* Remove the negative margin */
+  }
+
+  .info-panel {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #13475D;
+    transition: background-color 0.4s ease;
+  }
+
+  .info-panel.hovered {
+    background-color: #0e3047;
+  }
+
+  .content {
+    flex-grow: 1;
+    padding-right: 20px;
+  }
+
+  .content p {
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(255,255,255,0.8);
+    margin: 0;
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .hover-indicator {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  .hover-indicator.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .hover-indicator svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .widget {
+      min-height: 350px;
+    }
+
+    .image-container {
+      height: 250px;
+      min-height: 200px;
+    }
+
+    .image-title h3 {
+      font-size: 16px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .widget {
+      min-height: 300px;
+    }
+
+    .image-container {
+      height: 200px;
+      min-height: 150px;
+    }
+  }
 </style>

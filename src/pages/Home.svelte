@@ -61,7 +61,7 @@
       
       <AnimatedSection {isVisible} index={3}>
         <!-- Using the reusable Testimonials component -->
-        <Testimonials autoScroll={true} />
+        
       </AnimatedSection>
       
       <AnimatedSection {isVisible} index={4}>

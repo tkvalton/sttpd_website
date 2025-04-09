@@ -47,7 +47,7 @@ Sessions are held via Zoom, Skype or Facebook Messenger with your webcam positio
 
 Contact me before payment to check available time slots: straighttothepointdarts@gmail.com or 07522386993.`;
 
-  const blockSessionsDescription = `A complete package of six 45-minute coaching sessions for £250 (saving £170 compared to individual sessions).
+  const blockSessionsDescription = `A complete package of six 45-minute coaching sessions for £350 (saving £69.94 compared to individual sessions).
 
 We recommend starting with a throw analysis before beginning regular sessions for best results.
 
@@ -236,7 +236,6 @@ Each session includes video recording and playback with detailed correction feed
     
     <!-- Using the reusable Testimonials component -->
     <AnimatedSection {isVisible} index={8}>
-      <Testimonials autoScroll={true} />
     </AnimatedSection>
     
     <AnimatedSection {isVisible} index={9}>
@@ -393,13 +392,32 @@ Each session includes video recording and playback with detailed correction feed
     color: #333;
     line-height: 1.5;
   }
-  
+
   .services-description {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    color: #444;
+    font-family: 'TheBoLDFont', sans-serif;
+    font-size: 20px;
+    color: #13475D;
     max-width: 800px;
     margin: 0 auto;
+    line-height: 1.5;
+    position: relative;
+    display: inline-block;
+  }
+
+  .services-description::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #60C3F0;
+    transform: scaleX(0.7);
+    transition: transform 0.3s ease;
+  }
+
+  .services-description:hover::after {
+    transform: scaleX(1);
   }
   
   .faq-container {

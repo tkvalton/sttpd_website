@@ -13,10 +13,10 @@
   const navItems = [
     { id: 'about', name: 'ABOUT US', path: '/about', external: false },
     { id: 'coaching', name: 'DARTS COACHING', path: '/coaching', external: false },
-    { id: 'shop', name: 'SHOP', path: 'https://straight-to-the-point-darts.square.site/', external: true },
     { id: 'mydarts', name: 'MY DARTS', path: '/mydarts', external: false },
     { id: 'blog', name: 'BLOG', path: '/blog', external: false },
-    { id: 'contact', name: 'CONTACT', path: '/contact', external: false }
+    { id: 'contact', name: 'CONTACT', path: '/contact', external: false },
+    { id: 'shop', name: 'SHOP', path: 'https://straight-to-the-point-darts.square.site/', external: true },
   ];
 
   // Track if mobile menu is open
