@@ -1,9 +1,9 @@
-<!-- 
-  Updated Darts Coaching page with customized service panels and key benefits
--->
+<!-- src/pages/DartsCoaching.svelte -->
 <script lang="ts">
   import ServicePanel from '../components/darts_coaching/ServicePanel.svelte';
   import Testimonials from '../components/general/Testimonials.svelte';
+  import PageTransition from '../components/general/PageTransition.svelte';
+  import AnimatedSection from '../components/general/AnimatedSection.svelte';
 
   // Instructions for the Throw Analysis service
   const throwAnalysisInstructions = [
@@ -60,76 +60,88 @@ Each session includes video recording and playback with detailed correction feed
 </script>
 
 <div class="coaching-page">
-  <div class="content-wrapper">
-    <!-- Throw Analysis Service Panel - Blue Theme -->
-    <ServicePanel 
-      title="THROW ANALYSIS SERVICE" 
-      highlightText="THE TURN AROUND TIME IS CURRENTLY 28 DAYS FROM RECEIVING YOUR FOOTAGE DUE TO HIGH DEMAND."
-      description={throwAnalysisDescription}
-      price="89.99"
-      instructions={throwAnalysisInstructions}
-      keyBenefits={throwAnalysisBenefits}
-      buttonText="TRANSFORM MY THROW"
-      leftPanelColor="#2BB0E9"
-      rightPanelColor="#0D3349"
-      highlightTextColor="#0D3349"
-      buttonColor="#FF6B00"
-      buttonHoverColor="#E05A00"
-      benefitsTitleColor="#FFE066"
-      benefitsTextColor="#E0FFF9"
-      buyLink={throwAnalysisBuyLink}
-    />
-    
-    <!-- Web Sessions Panel - Teal/Green Theme -->
-    <ServicePanel 
-      title="WEB SESSION" 
-      highlightText="45 MINUTES ONLINE SESSION"
-      description={webSessionDescription}
-      price="69.99"
-      keyBenefits={webSessionBenefits}
-      buttonText="BOOK MY SESSION"
-      leftPanelColor="#00C2A8"
-      rightPanelColor="#025159"
-      highlightTextColor="#025159"
-      rightPanelImage="/public/assets/images/coaching/web_sessions.jpg"
-      imageOpacity={0.25}
-      imagePosition="top left"
-      buttonColor="#FF6B00"
-      buttonHoverColor="#E05A00"
-      benefitsTitleColor="#FFE066"
-      reverse={true}
-      buyLink={webSessionBuyLink}
-    />
-    
-    <!-- Block of Sessions Panel - Purple Theme -->
-    <ServicePanel 
-      title="BLOCK OF SESSIONS" 
-      highlightText="PLEASE CONTACT ME TO ARRANGE YOUR REGULAR TIME SLOT IN ADVANCE"
-      description={blockSessionsDescription}
-      price="350.00"
-      keyBenefits={blockSessionsBenefits}
-      buttonText="START MY JOURNEY"
-      leftPanelColor="#8E79DC"
-      rightPanelColor="#2D2359"
-      highlightTextColor="#2D2359"
-      rightPanelImage="/public/assets/images/coaching/6 web sessions.png"
-      imageOpacity={0.2}
-      imagePosition="top right"
-      buttonColor="#FF6B00"
-      buttonHoverColor="#E05A00"
-      benefitsTitleColor="#FFE066"
-      buyLink={blockSessionsBuyLink}
-    />
-  </div>
-  
-  <!-- Using the reusable Testimonials component -->
-  <Testimonials autoScroll={true} />
-  
-  <footer>
-    <div class="footer-container">
-      <p>Copyright © 2025 Straight To The Point Darts</p>
+  <PageTransition let:isVisible let:stagger>
+    <div class="content-wrapper">
+      <!-- Throw Analysis Service Panel - Blue Theme -->
+      <AnimatedSection {isVisible} index={0} className="service-panel-container">
+        <ServicePanel 
+          title="THROW ANALYSIS SERVICE" 
+          highlightText="THE TURN AROUND TIME IS CURRENTLY 28 DAYS FROM RECEIVING YOUR FOOTAGE DUE TO HIGH DEMAND."
+          description={throwAnalysisDescription}
+          price="89.99"
+          instructions={throwAnalysisInstructions}
+          keyBenefits={throwAnalysisBenefits}
+          buttonText="TRANSFORM MY THROW"
+          leftPanelColor="#2BB0E9"
+          rightPanelColor="#0D3349"
+          highlightTextColor="#0D3349"
+          buttonColor="#FF6B00"
+          buttonHoverColor="#E05A00"
+          benefitsTitleColor="#FFE066"
+          benefitsTextColor="#E0FFF9"
+          buyLink={throwAnalysisBuyLink}
+        />
+      </AnimatedSection>
+      
+      <!-- Web Sessions Panel - Teal/Green Theme -->
+      <AnimatedSection {isVisible} index={1} className="service-panel-container">
+        <ServicePanel 
+          title="WEB SESSION" 
+          highlightText="45 MINUTES ONLINE SESSION"
+          description={webSessionDescription}
+          price="69.99"
+          keyBenefits={webSessionBenefits}
+          buttonText="BOOK MY SESSION"
+          leftPanelColor="#00C2A8"
+          rightPanelColor="#025159"
+          highlightTextColor="#025159"
+          rightPanelImage="/assets/images/coaching/web_sessions.jpg"
+          imageOpacity={0.25}
+          imagePosition="top left"
+          buttonColor="#FF6B00"
+          buttonHoverColor="#E05A00"
+          benefitsTitleColor="#FFE066"
+          reverse={true}
+          buyLink={webSessionBuyLink}
+        />
+      </AnimatedSection>
+      
+      <!-- Block of Sessions Panel - Purple Theme -->
+      <AnimatedSection {isVisible} index={2} className="service-panel-container">
+        <ServicePanel 
+          title="BLOCK OF SESSIONS" 
+          highlightText="PLEASE CONTACT ME TO ARRANGE YOUR REGULAR TIME SLOT IN ADVANCE"
+          description={blockSessionsDescription}
+          price="350.00"
+          keyBenefits={blockSessionsBenefits}
+          buttonText="START MY JOURNEY"
+          leftPanelColor="#8E79DC"
+          rightPanelColor="#2D2359"
+          highlightTextColor="#2D2359"
+          rightPanelImage="/assets/images/coaching/6 web sessions.png"
+          imageOpacity={0.2}
+          imagePosition="top right"
+          buttonColor="#FF6B00"
+          buttonHoverColor="#E05A00"
+          benefitsTitleColor="#FFE066"
+          buyLink={blockSessionsBuyLink}
+        />
+      </AnimatedSection>
     </div>
-  </footer>
+    
+    <!-- Using the reusable Testimonials component -->
+    <AnimatedSection {isVisible} index={3}>
+      <Testimonials autoScroll={true} />
+    </AnimatedSection>
+    
+    <AnimatedSection {isVisible} index={4}>
+      <footer>
+        <div class="footer-container">
+          <p>Copyright © 2025 Straight To The Point Darts</p>
+        </div>
+      </footer>
+    </AnimatedSection>
+  </PageTransition>
 </div>
 
 <style>

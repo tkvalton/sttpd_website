@@ -177,7 +177,7 @@
   }
   
   .divider {
-    height: 5px;
+    height: 04px;
     width: 100%;
     max-width: 100%;
   }
@@ -186,7 +186,7 @@
     width: 100vw;
     left: 0;
     right: 0;
-    min-height: 51px;
+    min-height: 80px;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     background-color: #60C3F0;
@@ -234,8 +234,9 @@
     text-decoration: none;
     font-family: 'TheBoLDFont', sans-serif;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 28px;
     padding: 8px;
+    top: 50%;
     text-transform: uppercase;
     transition: color 0.3s, font-size 0.2s;
     display: block;
@@ -243,11 +244,11 @@
 
   .nav-link:hover, .nav-link.active {
     color: #13475D; /* Dark blue color */
-    font-size: 18px;
+    font-size: 34px;
   }
   
   .external-icon {
-    font-size: 14px;
+    font-size: 24px;
     display: inline-block;
     margin-left: 4px;
     transition: transform 0.2s ease;
@@ -262,11 +263,11 @@
     color: white;
     background: transparent;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     cursor: pointer;
     position: absolute;
     right: 1rem;
-    top: 50%;
+    top: 100%;
     transform: translateY(-50%);
     padding: 5px 10px;
   }

@@ -1,18 +1,39 @@
 <script lang="ts">
   import { writable } from 'svelte/store';
+  import { fade } from 'svelte/transition';
   import Home from './pages/Home.svelte';
   import DartsCoaching from './pages/DartsCoaching.svelte';
+  import MyDarts from './pages/MyDarts.svelte';
   import Header from './components/general/Header.svelte';
   import { setContext } from 'svelte';
+  
   const currentPath = writable('/');
+  
+  // Keep track of whether we're transitioning between pages
+  let isTransitioning = false;
+  let pageKey = 0; // Used to force re-render of components
   
   // Function to handle navigation
   function handleNavigation(path: string) {
-    $currentPath = path;
-    // Update browser URL without reload
-    window.history.pushState({}, '', path);
-    // Scroll to top when navigating
-    window.scrollTo(0, 0);
+    if ($currentPath === path) return; // Don't navigate to the same page
+    
+    // Set transitioning state
+    isTransitioning = true;
+    
+    // Small delay for the fade out transition
+    setTimeout(() => {
+      $currentPath = path;
+      pageKey++; // Force re-render of the component
+      
+      // Update browser URL without reload
+      window.history.pushState({}, '', path);
+      
+      // Scroll to top when navigating
+      window.scrollTo(0, 0);
+      
+      // End transition
+      isTransitioning = false;
+    }, 200); // Matches the fade transition duration
   }
 
   setContext('navigate', handleNavigation);
@@ -25,20 +46,26 @@
   />
   
   <div class="content-area">
-    <div class="main-content">
-      {#if $currentPath === '/'}
-        <Home />
-      {:else if $currentPath === '/coaching'}
-        <DartsCoaching />
-      {:else}
-        <!-- Fallback or 404 page -->
-        <div class="page-not-found">
-          <h1>Page Not Found</h1>
-          <p>Sorry, the page you were looking for doesn't exist.</p>
-          <button on:click={() => handleNavigation('/')}>Return to Home</button>
-        </div>
-      {/if}
-    </div>
+    {#if !isTransitioning}
+      <div class="main-content" transition:fade={{ duration: 200 }}>
+        {#key pageKey}
+          {#if $currentPath === '/'}
+            <Home />
+          {:else if $currentPath === '/coaching'}
+            <DartsCoaching />
+          {:else if $currentPath === '/mydarts'}
+            <MyDarts />
+          {:else}
+            <!-- Fallback or 404 page -->
+            <div class="page-not-found">
+              <h1>Page Not Found</h1>
+              <p>Sorry, the page you were looking for doesn't exist.</p>
+              <button on:click={() => handleNavigation('/')}>Return to Home</button>
+            </div>
+          {/if}
+        {/key}
+      </div>
+    {/if}
   </div>
 </div>
 
