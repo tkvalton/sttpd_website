@@ -61,10 +61,9 @@ Each session includes video recording and playback with detailed correction feed
   
   // Success stats
   const successStats = [
-    { number: "100+", text: "Amateur players improved" },
-    { number: "21+", text: "Professional players coached" },
-    { number: "80%", text: "Players see improvement after first session" },
-    { number: "4.9/5", text: "Average satisfaction rating" }
+    { number: "1000+", text: "Amateur players improved" },
+    { number: "35+", text: "Professional players coached" },
+    { number: "5/5", text: "Average satisfaction rating" }
   ];
 </script>
 
