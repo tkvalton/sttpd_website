@@ -6,6 +6,7 @@
   import MyDarts from './pages/MyDarts.svelte';
   import Contact from './pages/Contact.svelte';
   import AboutUs from './pages/AboutUs.svelte';
+  import Blog from './pages/Blog.svelte';
   import Header from './components/general/Header.svelte';
   import { setContext } from 'svelte';
   
@@ -61,6 +62,8 @@
             <Contact />
           {:else if $currentPath === '/about'}
             <AboutUs />
+          {:else if $currentPath === '/blog'}
+            <Blog />
           {:else}
             <!-- Fallback or 404 page -->
             <div class="page-not-found">

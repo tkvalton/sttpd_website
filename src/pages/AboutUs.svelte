@@ -32,7 +32,7 @@
                 <p>With a passion for technique analysis and a commitment to player development, I've dedicated myself to providing clear, actionable coaching that delivers real results. My approach focuses on identifying the specific adjustments that will make the biggest difference to your game.</p>
               </div>
               <div class="story-image">
-                <img src="/assets/images/coaching/web_sessions.jpg" alt="Darts coaching session" />
+                <img src="assets\images\glen_durrant_coaching_team.jpg" alt="Darts coaching session" />
               </div>
             </div>
           </div>
